@@ -1,9 +1,12 @@
 import cv2, Leap, math, ctypes, sys , time
 import numpy as np
+import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 new_model = keras.models.load_model('Leap_motion_model.h5')
+#new_model._make_predict_function()
+graph = tf.get_default_graph()
 #new_model.summary()
 
 def convert_distortion_maps(image):
@@ -85,17 +88,21 @@ def run(controller):
             img_array = img_array.astype(np.float32)
             img_array = np.multiply(img_array, 1.0 / 255.0)
             img_array = img_array.reshape(1,img_height,img_width,1)
-            [preds] = new_model.predict(img_array)
+            with graph.as_default():
+                [preds] = new_model.predict(img_array)
             preds = list(preds)
-
+            handType = ''
+            f = open('temp_data','a')
             for hand in frame.hands:
                 handType = "Left Hand" if hand.is_left else "Right Hand"
                 #print(handType + "Hand ID:" + str(hand.id) + "    " + str(hand.palm_position))
-                print(handType)
 
-
-            print(max(preds))
-            print(chr(ord('A')+preds.index(max(preds))))
+            #print(max(preds))
+            pred_str = (chr(ord('A')+preds.index(max(preds))))
+            #print(pred_str)
+            f.write(handType+' '+ pred_str + '\n')
+            f.flush()
+            time.sleep(0.1)
             #display images
             #cv2.imshow('Left Camera', undistorted_left)
             #cv2.imshow('Right Camera', undistorted_right)
@@ -104,8 +111,8 @@ def run(controller):
             count+=1
             print(count)
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                break'''
-            time.sleep(0.1)
+                break
+            time.sleep(0.1)'''
 def main():
     controller = Leap.Controller()
     controller.set_policy_flags(Leap.Controller.POLICY_IMAGES)
@@ -114,5 +121,5 @@ def main():
     except KeyboardInterrupt:
         sys.exit(0)
 
-if __name__ == '__main__':
-    main()
+'''if __name__ == '__main__':
+    main()'''

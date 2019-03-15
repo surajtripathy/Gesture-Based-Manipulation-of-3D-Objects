@@ -12,11 +12,18 @@ class vtkTimerCallback():
        #self.actor.SetPosition(self.timer_count, self.timer_count,0);
         #print(str(pyperclip.paste()))
         ret_string = f1.readline().strip()
-        if str(ret_string) == "Left Hand":
+        if str(ret_string) == "Left Hand A":
             self.actor.RotateX(1.0)
-
-        if str(ret_string) == "Right Hand":
+        if str(ret_string) == "Left Hand B":
+            self.actor.RotateY(1.0)
+        if str(ret_string) == "Left Hand C":
+            self.actor.RotateZ(1.0)
+        if str(ret_string) == "Right Hand A":
             self.actor.RotateX(-1.0)
+        if str(ret_string) == "Right Hand B":
+            self.actor.RotateY(-1.0)
+        if str(ret_string) == "Right Hand C":
+            self.actor.RotateZ(-1.0)
         iren = obj
         iren.GetRenderWindow().Render()
         self.timer_count += 1

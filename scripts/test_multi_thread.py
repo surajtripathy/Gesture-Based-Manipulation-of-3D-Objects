@@ -1,13 +1,14 @@
 import rotate_cube
-from leap_gesture import LeapListener
+import temp_leap
+#from leap_gesture import LeapListener
 import threading
 import time
-import Leap , sys
-from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
-from multiprocessing import Pipe
-parent , child = Pipe()
+#import Leap , sys
+#from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
+#from multiprocessing import Pipe
+#parent , child = Pipe()
 
-def main():
+'''def main():
     print("Press enter to quit")
     listener = LeapListener()
     controller = Leap.Controller()
@@ -20,10 +21,10 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        controller.remove_listener(listener)
+        controller.remove_listener(listener)'''
 
 t1 = threading.Thread(target = rotate_cube.main)
-t2 = threading.Thread(target = main)
+t2 = threading.Thread(target = temp_leap.main)
 t1.daemon = True
 t2.daemon = True
 t2.start()
