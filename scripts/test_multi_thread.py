@@ -22,6 +22,9 @@ import time
         pass
     finally:
         controller.remove_listener(listener)'''
+#import os
+#os.remove(temp_data)
+
 
 t1 = threading.Thread(target = rotate_cube.main)
 t2 = threading.Thread(target = temp_leap.main)

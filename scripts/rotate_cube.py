@@ -31,7 +31,7 @@ class vtkTimerCallback():
 
 def main():
     #ColorBackground = [0.0, 0.0, 0.0]
-    FirstobjPath = "table-mountain.obj"
+    FirstobjPath = "cube.obj"
     reader = vtk.vtkOBJReader()
     reader.SetFileName(FirstobjPath)
     reader.Update()
@@ -54,7 +54,7 @@ def main():
     renderer = vtk.vtkRenderer()
     renderWindow = vtk.vtkRenderWindow()
     renderWindow.SetWindowName("Test")
-    renderWindow.SetSize(600,600)
+    renderWindow.SetSize(800,800)
     renderWindow.AddRenderer(renderer);
     renderWindowInteractor = vtk.vtkRenderWindowInteractor()
     renderWindowInteractor.SetRenderWindow(renderWindow)
